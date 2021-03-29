@@ -1,6 +1,8 @@
+using System;
+
 namespace MineSweeper
 {
-    public class Board
+    public class Board : IBoard
     {
 
         public Tile[][] Tiles { get; }
@@ -9,11 +11,10 @@ namespace MineSweeper
         {
 
         }
-
-
-        public void RevealTile(int x, int y)
+        
+        public ITile GetTile(int x, int y)
         {
-            
+            throw new NotImplementedException();
         }
 
         public void SetFlag(int x, int y)

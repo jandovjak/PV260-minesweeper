@@ -2,7 +2,7 @@ using NUnit.Framework;
 
 namespace MineSweeperTest
 {
-    public class Tests
+    public class GameTests
     {
         [SetUp]
         public void Setup()
