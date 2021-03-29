@@ -4,8 +4,8 @@ namespace MineSweeper
 {
     public class Board : IBoard
     {
-        private const int MinimalSize = 3;
-        private const int MaximalSize = 50;
+        public const int MinimalSize = 3;
+        public const int MaximalSize = 50;
         private const int MinimalBombsPercentage = 20;
         private const int MaximalBombsPercentage = 60;
         

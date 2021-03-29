@@ -1225,6 +1225,16 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
+      },
+      "MineSweeper/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/MineSweeper.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MineSweeper.dll": {}
+        }
       }
     }
   },
@@ -4613,11 +4623,17 @@
         "system.xml.xpath.xmldocument.4.3.0.nupkg.sha512",
         "system.xml.xpath.xmldocument.nuspec"
       ]
+    },
+    "MineSweeper/1.0.0": {
+      "type": "project",
+      "path": "../MineSweeper/MineSweeper.csproj",
+      "msbuildProject": "../MineSweeper/MineSweeper.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "Microsoft.NET.Test.Sdk >= 16.5.0",
+      "MineSweeper >= 1.0.0",
       "NUnit >= 3.12.0",
       "NUnit3TestAdapter >= 3.16.1"
     ]
@@ -4646,7 +4662,11 @@
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
-          "projectReferences": {}
+          "projectReferences": {
+            "/Users/jandovjak/RiderProjects/PV260-minesweeper/MineSweeper/MineSweeper/MineSweeper.csproj": {
+              "projectPath": "/Users/jandovjak/RiderProjects/PV260-minesweeper/MineSweeper/MineSweeper/MineSweeper.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
