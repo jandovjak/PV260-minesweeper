@@ -2,15 +2,38 @@ namespace MineSweeper
 {
     public class Board
     {
-        private const int MinimalSize = 3;
-        private const int MaximalSize = 3;
+
         public Tile[][] Tiles { get; }
 
         public Board(int width, int height)
         {
+
+        }
+
+
+        public void RevealTile(int x, int y)
+        {
+            
+        }
+
+        public void SetFlag(int x, int y)
+        {
             
         }
         
+        private void setBombs()
+        {
+            
+        }
+
+        private void setNeighbours(int x, int y)
+        {
+            
+        }
         
+        private void initialize()
+        {
+            
+        }
     }
 }
