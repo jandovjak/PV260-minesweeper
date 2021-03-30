@@ -4639,32 +4639,34 @@
     ]
   },
   "packageFolders": {
-    "/Users/jandovjak/.nuget/packages/": {}
+    "C:\\Users\\Eduard Srol\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/jandovjak/RiderProjects/PV260-minesweeper/MineSweeper/MineSweeperTest/MineSweeperTest.csproj",
+      "projectUniqueName": "C:\\Users\\Eduard Srol\\OneDrive\\School\\Univerzity\\PV260\\PV260-minesweeper\\MineSweeper\\MineSweeperTest\\MineSweeperTest.csproj",
       "projectName": "MineSweeperTest",
-      "projectPath": "/Users/jandovjak/RiderProjects/PV260-minesweeper/MineSweeper/MineSweeperTest/MineSweeperTest.csproj",
-      "packagesPath": "/Users/jandovjak/.nuget/packages/",
-      "outputPath": "/Users/jandovjak/RiderProjects/PV260-minesweeper/MineSweeper/MineSweeperTest/obj/",
+      "projectPath": "C:\\Users\\Eduard Srol\\OneDrive\\School\\Univerzity\\PV260\\PV260-minesweeper\\MineSweeper\\MineSweeperTest\\MineSweeperTest.csproj",
+      "packagesPath": "C:\\Users\\Eduard Srol\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Eduard Srol\\OneDrive\\School\\Univerzity\\PV260\\PV260-minesweeper\\MineSweeper\\MineSweeperTest\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/jandovjak/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\Eduard Srol\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "/Users/jandovjak/RiderProjects/PV260-minesweeper/MineSweeper/MineSweeper/MineSweeper.csproj": {
-              "projectPath": "/Users/jandovjak/RiderProjects/PV260-minesweeper/MineSweeper/MineSweeper/MineSweeper.csproj"
+            "C:\\Users\\Eduard Srol\\OneDrive\\School\\Univerzity\\PV260\\PV260-minesweeper\\MineSweeper\\MineSweeper\\MineSweeper.csproj": {
+              "projectPath": "C:\\Users\\Eduard Srol\\OneDrive\\School\\Univerzity\\PV260\\PV260-minesweeper\\MineSweeper\\MineSweeper\\MineSweeper.csproj"
             }
           }
         }
@@ -4702,12 +4704,18 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[3.1.10, 3.1.10]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.103/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
       }
     }
   }

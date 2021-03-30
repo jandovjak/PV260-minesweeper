@@ -1,20 +1,20 @@
+using System;
+
 namespace MineSweeper
 {
     public class Game : IGame
     {
         
-
-        private IBoard _realBoard;
-        public IBoard CurrentBoard { get; }
+        public IBoard CurrentBoard { get; private set; }
 
         public Game(int width, int height)
         {
 
         }
 
-        public void Move(int x, int y)
+        public IBoard Move(int x, int y)
         {
-            
+            throw new NotImplementedException();
         }
     }
 }

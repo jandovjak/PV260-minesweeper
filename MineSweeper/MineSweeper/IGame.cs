@@ -2,6 +2,6 @@ namespace MineSweeper
 {
     public interface IGame
     {
-        public void Move(int x, int y);
+        public IBoard Move(int x, int y);
     }
 }
