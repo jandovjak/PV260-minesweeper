@@ -36,6 +36,10 @@ namespace MineSweeper
             }
             return CurrentBoard;
         }
+        public bool AreAllBombsFlagged()
+        {
+            throw new NotImplementedException();
+        }
 
         private bool IsValidFlagTile(ITile tile)
         {

@@ -6,6 +6,6 @@ namespace MineSweeper
         public int Width { get; }
         public ITile GetTile(int x, int y);
         public string ToString();
-        public bool AllBombsFlagged();
+
     }
 }

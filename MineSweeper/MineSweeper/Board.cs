@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MineSweeper
 {
@@ -11,7 +13,12 @@ namespace MineSweeper
 
         public int Height { get; }
         public int Width { get; }
-        private ITile[,] _tiles;
+        public int _bombsAmount { get; private set; }
+        
+        private Random _randomGenerator = new Random();
+        private List<ITile> _tiles;
+        private int _boardSize;
+
 
         public Board(int width, int height)
         {
@@ -26,18 +33,32 @@ namespace MineSweeper
         
         public ITile GetTile(int x, int y)
         {
-            return _tiles[x, y];
+            return _tiles[(x * Width) + y];
         }
 
-        public bool AllBombsFlagged()
+        private void generateTiles()
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < _boardSize; i++)
+            {
+                _tiles[i] = new Tile();
+                if (i < _bombsAmount)
+                {
+                    _tiles[i].IsBomb = true;
+                }
+            }
         }
 
+        private void shuffleTiles()
+        {
+            _tiles.OrderBy((item) => _randomGenerator.Next());
+        }
+        
         private void setBombs()
         {
             var boardSize = Width * Height;
-            var randomPercentage = new Random().Next(MinimalBombsPercentage, MaximalBombsPercentage);
+            var randomPercentage = _randomGenerator.Next(MinimalBombsPercentage, MaximalBombsPercentage);
+            _bombsAmount = (boardSize * randomPercentage) / 100;
+            
         }
 
         private void setNeighbours()
