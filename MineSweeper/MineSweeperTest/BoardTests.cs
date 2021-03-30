@@ -22,5 +22,6 @@ namespace MineSweeperTest
         {
             Assert.Throws<ArgumentOutOfRangeException>( () => new Board(width, height));
         }
+        
     }
 }

@@ -1,3 +1,5 @@
+using FakeItEasy;
+using MineSweeper;
 using NUnit.Framework;
 
 namespace MineSweeperTest
@@ -12,7 +14,6 @@ namespace MineSweeperTest
         [Test]
         public void Test1()
         {
-            Assert.Pass();
         }
     }
 }
