@@ -8,8 +8,10 @@ namespace MineSweeper
         public const int MaximalSize = 50;
         private const int MinimalBombsPercentage = 20;
         private const int MaximalBombsPercentage = 60;
-        
-        public Tile[][] Tiles { get; }
+
+        public int Height { get; }
+        public int Width { get; }
+        private ITile[,] _tiles;
 
         public Board(int width, int height)
         {
@@ -17,16 +19,14 @@ namespace MineSweeper
             {
                 throw new ArgumentOutOfRangeException();
             }
+
+            Height = height;
+            Width = width;
         }
         
         public ITile GetTile(int x, int y)
         {
-            throw new NotImplementedException();
-        }
-
-        public void SetFlag(int x, int y)
-        {
-            
+            return _tiles[x, y];
         }
 
         public bool AllBombsFlagged()

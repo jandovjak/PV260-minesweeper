@@ -9,6 +9,16 @@ namespace MineSweeper
         public bool IsRevealed { get; set; }
         public bool IsFlag { get; set; }
 
+
+        public void RevealTile()
+        {
+            IsRevealed = true;
+        }
+        
+        public void ChangeFlag()
+        {
+            IsFlag = !IsFlag;
+        }
         public string ToString()
         {
             throw new NotImplementedException();
