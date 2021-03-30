@@ -36,17 +36,19 @@ namespace MineSweeper
 
         private void setBombs()
         {
-            
+            var boardSize = Width * Height;
+            var randomPercentage = new Random().Next(MinimalBombsPercentage, MaximalBombsPercentage);
         }
 
-        private void setNeighbours(int x, int y)
+        private void setNeighbours()
         {
             
         }
         
         private void initialize()
         {
-            
+            setBombs();
+            setNeighbours();
         }
     }
 }
