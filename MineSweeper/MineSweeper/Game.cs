@@ -6,6 +6,7 @@ namespace MineSweeper
     {
         
         public IBoard CurrentBoard { get; private set; }
+        private GameStatus _gameStatus;
 
         public Game(int width, int height)
         {
@@ -29,11 +30,13 @@ namespace MineSweeper
             {
                 return CurrentBoard;
             }
+
             var tile = CurrentBoard.GetTile(x, y);
             if (IsValidFlagTile(tile))
             {
                 tile.ChangeFlag();
             }
+
             return CurrentBoard;
         }
         public bool AreAllBombsFlagged()
@@ -50,5 +53,7 @@ namespace MineSweeper
         {
             return (x < CurrentBoard.Width && x >= 0) && (y < CurrentBoard.Height && y >= 0);
         }
+
+
     }
 }

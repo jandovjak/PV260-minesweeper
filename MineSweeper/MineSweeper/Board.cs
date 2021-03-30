@@ -13,11 +13,11 @@ namespace MineSweeper
 
         public int Height { get; }
         public int Width { get; }
-        public int _bombsAmount { get; private set; }
-        
-        private Random _randomGenerator = new Random();
+        public int BombsAmount { get; private set; }
+
+        private readonly Random _randomGenerator = new Random();
+        public readonly int BoardSize;
         private List<ITile> _tiles;
-        private int _boardSize;
 
 
         public Board(int width, int height)
@@ -29,6 +29,12 @@ namespace MineSweeper
 
             Height = height;
             Width = width;
+            BoardSize = Height * Width;
+
+            _tiles = generateTiles();
+            _tiles = setBombs(_tiles);
+            _tiles = shuffleTiles(_tiles);
+            _tiles = setNeighbours(_tiles);
         }
         
         public ITile GetTile(int x, int y)
@@ -36,40 +42,43 @@ namespace MineSweeper
             return _tiles[(x * Width) + y];
         }
 
-        private void generateTiles()
+        public List<ITile> generateTiles()
         {
-            for (int i = 0; i < _boardSize; i++)
+            var tiles = new List<ITile>();
+
+            for (int i = 0; i < BoardSize; i++)
             {
-                _tiles[i] = new Tile();
-                if (i < _bombsAmount)
-                {
-                    _tiles[i].IsBomb = true;
-                }
+                tiles.Add(new Tile());
             }
+
+            return tiles;
         }
 
-        private void shuffleTiles()
+        public List<ITile> ShuffleTiles(List<ITile> tiles)
         {
-            _tiles.OrderBy((item) => _randomGenerator.Next());
+            // TODO
+            tiles = tiles.OrderBy((item) => _randomGenerator.Next());
+            return tiles;
         }
-        
-        private void setBombs()
+
+        public List<ITile> SetBombs(List<ITile> tiles)
         {
             var boardSize = Width * Height;
             var randomPercentage = _randomGenerator.Next(MinimalBombsPercentage, MaximalBombsPercentage);
-            _bombsAmount = (boardSize * randomPercentage) / 100;
-            
+            BombsAmount = (boardSize * randomPercentage) / 100;
+
+            // TODO
+            if (i < BombsAmount)
+            {
+                _tiles[i].IsBomb = true;
+            }
+
+            return tiles;
         }
 
-        private void setNeighbours()
+        public List<ITile> SetNeighbours(List<ITile> tiles)
         {
-            
-        }
-        
-        private void initialize()
-        {
-            setBombs();
-            setNeighbours();
+            throw new NotImplementedException();
         }
     }
 }
