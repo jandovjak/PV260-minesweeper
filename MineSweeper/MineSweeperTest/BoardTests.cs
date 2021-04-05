@@ -19,5 +19,32 @@ namespace MineSweeperTest
         {
             Assert.Throws<ArgumentOutOfRangeException>(() => new Board(width, height));
         }
+
+        [Test]
+        public void CheckBombsAround()
+        {
+            var board = new Board(3, 3);
+            for(int x = 0; x < board.Height; x++) {
+                for(int y = 0; y < board.Width; y++)
+                {
+                    if (board.GetTile(x, y).IsBomb)
+                    {
+                        continue;
+                    }
+                    var expected = 0;
+                    for (int i = x - 1; i <= x + 1; i++)
+                    {
+                        for (int j = y - 1; j <= y + 1; j++)
+                        {
+                            if (board.IsValidPosition(i, j) && board.GetTile(i, j).IsBomb)
+                            {
+                                expected++;
+                            }
+                        }
+                    }
+                    Assert.AreEqual(expected, board.GetTile(x, y).BombsAround);
+                }
+            }
+        }
     }
 }

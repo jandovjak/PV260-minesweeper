@@ -74,7 +74,12 @@ namespace MineSweeper
 
         public List<ITile> SetNeighbours(List<ITile> tiles)
         {
-            throw new NotImplementedException();
+            return tiles;
+        }
+        
+        public bool IsValidPosition(int x, int y)
+        {
+            return (x < Width && x >= 0) && (y < Height && y >= 0);
         }
     }
 }
