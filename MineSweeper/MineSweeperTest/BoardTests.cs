@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using Castle.Components.DictionaryAdapter;
 using MineSweeper;
 using NUnit.Framework;
 
@@ -45,6 +43,30 @@ namespace MineSweeperTest
                     Assert.AreEqual(expected, board.GetTile(x, y).BombsAround);
                 }
             }
+        }
+        
+        [Test]
+        [TestCase(-1, 0, 3, 3)]
+        [TestCase(0, -1, 3, 3)]
+        [TestCase(-5, -5, 3, 3)]
+        [TestCase(6, 5, 4, 4)]
+        [TestCase(5, 5, 5, 5)]
+        public void CheckIsValidPosition_False(int x, int y, int width, int height)
+        {
+            var board = new Board(width, height);
+            Assert.IsFalse(board.IsValidPosition(x, y));
+        }
+        
+        [Test]
+        [TestCase(0, 0, 3, 3)]
+        [TestCase(1, 0, 4, 4)]
+        [TestCase(1, 1, 5, 5)]
+        [TestCase(4, 2, 5, 5)]
+        [TestCase(3, 4, 5, 5)]
+        public void CheckIsValidPosition_True(int x, int y, int width, int height)
+        {
+            var board = new Board(width, height);
+            Assert.IsTrue(board.IsValidPosition(x, y));
         }
     }
 }

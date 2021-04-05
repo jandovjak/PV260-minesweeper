@@ -20,7 +20,7 @@ namespace MineSweeper
         private List<ITile> _tiles;
 
 
-        public Board(int width, int height)
+    public Board(int width, int height)
         {
             if (width < MinimalSize || height < MinimalSize || width > MaximalSize || height > MaximalSize)
             {
