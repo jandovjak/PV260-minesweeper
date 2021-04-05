@@ -32,9 +32,9 @@ namespace MineSweeper
             BoardSize = Height * Width;
 
             _tiles = generateTiles();
-            _tiles = setBombs(_tiles);
-            _tiles = shuffleTiles(_tiles);
-            _tiles = setNeighbours(_tiles);
+            _tiles = SetBombs(_tiles);
+            _tiles = ShuffleTiles(_tiles);
+            _tiles = SetNeighbours(_tiles);
         }
         
         public ITile GetTile(int x, int y)
@@ -56,8 +56,7 @@ namespace MineSweeper
 
         public List<ITile> ShuffleTiles(List<ITile> tiles)
         {
-            // TODO
-            tiles = tiles.OrderBy((item) => _randomGenerator.Next());
+            tiles = tiles.OrderBy((item) => _randomGenerator.Next()).ToList();
             return tiles;
         }
 
@@ -66,13 +65,10 @@ namespace MineSweeper
             var boardSize = Width * Height;
             var randomPercentage = _randomGenerator.Next(MinimalBombsPercentage, MaximalBombsPercentage);
             BombsAmount = (boardSize * randomPercentage) / 100;
-
-            // TODO
-            if (i < BombsAmount)
+            for (int i = 0; i < BombsAmount; i++)
             {
-                _tiles[i].IsBomb = true;
+                tiles[i].IsBomb = true;
             }
-
             return tiles;
         }
 
