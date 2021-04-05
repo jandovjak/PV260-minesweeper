@@ -23,7 +23,7 @@ namespace MineSweeperTest
         [Test]
         public void CheckBombsAround()
         {
-            var board = new Board(3, 3);
+            var board = new Board(10, 10);
             for(int x = 0; x < board.Height; x++) {
                 for(int y = 0; y < board.Width; y++)
                 {
