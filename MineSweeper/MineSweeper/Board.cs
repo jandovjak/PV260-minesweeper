@@ -48,7 +48,7 @@ namespace MineSweeper
             var tile = GetTile(x, y);
             tile.IsRevealed = true;
 
-            if (tile.BombsAround == 0)
+            if (tile.BombsAround == 0 && !tile.IsBomb)
                 RevealAdjacentTiles(x, y);
         }
 
@@ -56,7 +56,7 @@ namespace MineSweeper
         {
             for (int i = x - 1; i <= x + 1; i++)
             {
-                for (int j = y - 1; j <= y + 1; i++)
+                for (int j = y - 1; j <= y + 1; j++)
                 {
                     if (IsValidPosition(i, j) && !GetTile(i, j).IsRevealed)
                         RevealTile(i, j);
