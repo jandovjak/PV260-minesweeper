@@ -36,8 +36,8 @@ namespace MineSweeper
         
         public ITile GetTile(int x, int y)
         {
-            // TODO - nechceme tu dekrementovat najprv x a y?
-            return Tiles[(x * Width) + y];
+            int index = CoordinatesToListIndex(x, y);
+            return Tiles[index];
         }
 
         public void RevealTile(int x, int y)
@@ -96,6 +96,30 @@ namespace MineSweeper
 
         public List<ITile> SetNeighbours(List<ITile> tiles)
         {
+            for (int x = 0; x < Width; x++)
+            {
+                for (int y = 0; y < Height; y++)
+                {
+                    int index = CoordinatesToListIndex(x, y);
+                    ITile tile = tiles[index];
+
+                    if (tile.IsBomb)
+                    {
+                        for (int i = x - 1; i <= x + 1; i++)
+                        {
+                            for (int j = y - 1; j <= y + 1; j++)
+                            {
+                                if (i != x && j != y)
+                                {
+                                    int adjIndex = CoordinatesToListIndex(i, j);
+                                    tiles[adjIndex].BombsAround += 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             return tiles;
         }
         
@@ -109,6 +133,11 @@ namespace MineSweeper
             Tiles = SetBombs(Tiles);
             Tiles = ShuffleTiles(Tiles);
             Tiles = SetNeighbours(Tiles);
+        }
+
+        private int CoordinatesToListIndex(int x, int y)
+        {
+            return (x * Width) + y;
         }
     }
 }
