@@ -6,13 +6,13 @@ namespace MineSweeper
     {
         
         public IBoard Board { get; private set; }
-        private GameStatus _gameStatus;
+        public GameStatus GameStatus { get; private set; }
 
         public Game(int width, int height)
         {
             Board = new Board(width, height);
             Board.Initialize();
-            _gameStatus = GameStatus.Playing;
+            GameStatus = GameStatus.Playing;
         }
 
         public IBoard LeftClick(int x, int y)
@@ -23,7 +23,7 @@ namespace MineSweeper
             var tile = Board.GetTile(x, y);
             if (tile.IsBomb)
             {
-                _gameStatus = GameStatus.Lose;
+                GameStatus = GameStatus.Lose;
             }
             return Board;
         }
@@ -45,7 +45,7 @@ namespace MineSweeper
 
             if (AreAllBombsFlagged())
             {
-                _gameStatus = GameStatus.Win;
+                GameStatus = GameStatus.Win;
             }
 
             return Board;
