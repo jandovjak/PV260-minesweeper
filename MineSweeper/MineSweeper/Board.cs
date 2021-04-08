@@ -36,15 +36,31 @@ namespace MineSweeper
         
         public ITile GetTile(int x, int y)
         {
+            // TODO - nechceme tu dekrementovat najprv x a y?
             return Tiles[(x * Width) + y];
         }
 
         public void RevealTile(int x, int y)
         {
-            if (IsValidPosition(x, y))
+            if (!IsValidPosition(x, y))
+                return;
+
+            var tile = GetTile(x, y);
+            tile.IsRevealed = true;
+
+            if (tile.BombsAround == 0)
+                RevealAdjacentTiles(x, y);
+        }
+
+        private void RevealAdjacentTiles(int x, int y)
+        {
+            for (int i = x - 1; i <= x + 1; i++)
             {
-                var tile = GetTile(x, y);
-                tile.IsRevealed = true;
+                for (int j = y - 1; j <= y + 1; i++)
+                {
+                    if (IsValidPosition(i, j) && !GetTile(i, j).IsRevealed)
+                        RevealTile(i, j);
+                }
             }
         }
 
