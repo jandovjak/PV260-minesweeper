@@ -5,39 +5,42 @@ namespace MineSweeper
     public class Game : IGame
     {
         
-        public IBoard CurrentBoard { get; private set; }
+        public IBoard Board { get; private set; }
         private GameStatus _gameStatus;
 
         public Game(int width, int height)
         {
-
+            Board = new Board(width, height);
+            Board.Initialize();
+            _gameStatus = GameStatus.Playing;
         }
 
         public IBoard LeftClick(int x, int y)
         {
-            if (IsValidPosition(x, y))
+            Board.RevealTile(x, y);
+            var tile = Board.GetTile(x, y);
+            if (tile.IsBomb)
             {
-                var tile = CurrentBoard.GetTile(x, y);
-                tile.RevealTile();
+                _gameStatus = GameStatus.Lose;
             }
-            
-            return CurrentBoard;
+            return Board;
         }
 
         public IBoard RightClick(int x, int y)
         {
-            if (!IsValidPosition(x, y))
+            if (!Board.IsValidPosition(x, y))
             {
-                return CurrentBoard;
+                return Board;
             }
 
-            var tile = CurrentBoard.GetTile(x, y);
+            var tile = Board.GetTile(x, y);
             if (IsValidFlagTile(tile))
             {
                 tile.ChangeFlag();
             }
+            
 
-            return CurrentBoard;
+            return Board;
         }
         public bool AreAllBombsFlagged()
         {
@@ -47,11 +50,6 @@ namespace MineSweeper
         private bool IsValidFlagTile(ITile tile)
         {
             return !tile.IsRevealed;
-        }
-
-        private bool IsValidPosition(int x, int y)
-        {
-            return (x < CurrentBoard.Width && x >= 0) && (y < CurrentBoard.Height && y >= 0);
         }
 
 
