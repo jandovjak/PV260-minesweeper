@@ -17,7 +17,7 @@ namespace MineSweeper
 
         private readonly Random _randomGenerator = new Random();
         public readonly int BoardSize;
-        private List<ITile> _tiles;
+        public List<ITile> Tiles { get; private set; }
 
 
     public Board(int width, int height)
@@ -31,15 +31,24 @@ namespace MineSweeper
             Width = width;
             BoardSize = Height * Width;
 
-            _tiles = generateTiles();
+            Tiles = GenerateTiles();
         }
         
         public ITile GetTile(int x, int y)
         {
-            return _tiles[(x * Width) + y];
+            return Tiles[(x * Width) + y];
         }
 
-        public List<ITile> generateTiles()
+        public void RevealTile(int x, int y)
+        {
+            if (IsValidPosition(x, y))
+            {
+                var tile = GetTile(x, y);
+                tile.IsRevealed = true;
+            }
+        }
+
+        public List<ITile> GenerateTiles()
         {
             var tiles = new List<ITile>();
 
@@ -81,9 +90,9 @@ namespace MineSweeper
 
         public void Initialize()
         {
-            _tiles = SetBombs(_tiles);
-            _tiles = ShuffleTiles(_tiles);
-            _tiles = SetNeighbours(_tiles);
+            Tiles = SetBombs(Tiles);
+            Tiles = ShuffleTiles(Tiles);
+            Tiles = SetNeighbours(Tiles);
         }
     }
 }

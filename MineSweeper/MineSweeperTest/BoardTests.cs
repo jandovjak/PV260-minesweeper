@@ -1,6 +1,7 @@
 using System;
 using MineSweeper;
 using NUnit.Framework;
+using System.Linq;
 
 namespace MineSweeperTest
 {
@@ -67,6 +68,23 @@ namespace MineSweeperTest
         {
             var board = new Board(width, height);
             Assert.IsTrue(board.IsValidPosition(x, y));
+        }
+
+        [Test]
+        public void CheckRevealTile_GivenTileIsBomb()
+        {
+            var board = new Board(5, 5);
+            var tile = board.GetTile(1, 1);
+            var tiles = board.Tiles;
+            int numRevealedTilesInitial = tiles.Count(tile => tile.IsRevealed);
+
+            Assert.IsFalse(tile.IsRevealed);
+            tile.IsBomb = true;
+            board.RevealTile(1, 1);
+            Assert.IsTrue(tile.IsRevealed);
+
+            int numRevealedTilesAfter = tiles.Count(tile => tile.IsRevealed);
+            Assert.AreEqual(numRevealedTilesInitial + 1, numRevealedTilesAfter);
         }
     }
 }
