@@ -14,6 +14,8 @@ namespace MineSweeper
         public int Height { get; }
         public int Width { get; }
         public int BombsAmount { get; private set; }
+        public int BombsFlagged { get; private set; }
+        public int TilesFlagged { get; private set; }
 
         private readonly Random _randomGenerator = new Random();
         public readonly int BoardSize;
@@ -50,18 +52,6 @@ namespace MineSweeper
 
             if (tile.BombsAround == 0 && !tile.IsBomb)
                 RevealAdjacentTiles(x, y);
-        }
-
-        private void RevealAdjacentTiles(int x, int y)
-        {
-            for (int i = x - 1; i <= x + 1; i++)
-            {
-                for (int j = y - 1; j <= y + 1; j++)
-                {
-                    if (IsValidPosition(i, j) && !GetTile(i, j).IsRevealed)
-                        RevealTile(i, j);
-                }
-            }
         }
 
         public List<ITile> GenerateTiles()
@@ -128,6 +118,32 @@ namespace MineSweeper
             return (x < Width && x >= 0) && (y < Height && y >= 0);
         }
 
+        public void ChangeFlag(int x, int y)
+        {
+            var tile = GetTile(x, y);
+            tile.ChangeFlag();
+            if (tile.IsBomb)
+            {
+                if (tile.IsFlag)
+                {
+                    BombsFlagged++;
+                }
+                else
+                {
+                    BombsFlagged--;
+                }
+            }
+            
+            if (tile.IsFlag)
+            {
+                TilesFlagged++;
+            }
+            else
+            {
+                TilesFlagged--;
+            }
+        }
+
         public void Initialize()
         {
             Tiles = SetBombs(Tiles);
@@ -135,6 +151,18 @@ namespace MineSweeper
             Tiles = SetNeighbours(Tiles);
         }
 
+        private void RevealAdjacentTiles(int x, int y)
+        {
+            for (int i = x - 1; i <= x + 1; i++)
+            {
+                for (int j = y - 1; j <= y + 1; j++)
+                {
+                    if (IsValidPosition(i, j) && !GetTile(i, j).IsRevealed)
+                        RevealTile(i, j);
+                }
+            }
+        }
+        
         private int CoordinatesToListIndex(int x, int y)
         {
             return (x * Width) + y;

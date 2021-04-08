@@ -17,6 +17,8 @@ namespace MineSweeper
 
         public IBoard LeftClick(int x, int y)
         {
+            x--;
+            y--;
             Board.RevealTile(x, y);
             var tile = Board.GetTile(x, y);
             if (tile.IsBomb)
@@ -28,28 +30,29 @@ namespace MineSweeper
 
         public IBoard RightClick(int x, int y)
         {
+            x--;
+            y--;
             if (!Board.IsValidPosition(x, y))
             {
                 return Board;
             }
 
             var tile = Board.GetTile(x, y);
-            if (IsValidFlagTile(tile))
+            if (!tile.IsRevealed)
             {
-                tile.ChangeFlag();
+                Board.ChangeFlag(x, y);
             }
-            
+
+            if (AreAllBombsFlagged())
+            {
+                _gameStatus = GameStatus.Win;
+            }
 
             return Board;
         }
         public bool AreAllBombsFlagged()
         {
-            throw new NotImplementedException();
-        }
-
-        private bool IsValidFlagTile(ITile tile)
-        {
-            return !tile.IsRevealed;
+            return Board.BombsAmount == Board.BombsFlagged && Board.BombsFlagged == Board.TilesFlagged;
         }
 
 
