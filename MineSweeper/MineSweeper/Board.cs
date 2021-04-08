@@ -32,9 +32,6 @@ namespace MineSweeper
             BoardSize = Height * Width;
 
             _tiles = generateTiles();
-            _tiles = SetBombs(_tiles);
-            _tiles = ShuffleTiles(_tiles);
-            _tiles = SetNeighbours(_tiles);
         }
         
         public ITile GetTile(int x, int y)
@@ -80,6 +77,13 @@ namespace MineSweeper
         public bool IsValidPosition(int x, int y)
         {
             return (x < Width && x >= 0) && (y < Height && y >= 0);
+        }
+
+        public void Initialize()
+        {
+            _tiles = SetBombs(_tiles);
+            _tiles = ShuffleTiles(_tiles);
+            _tiles = SetNeighbours(_tiles);
         }
     }
 }
