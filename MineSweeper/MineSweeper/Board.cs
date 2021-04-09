@@ -23,7 +23,7 @@ namespace MineSweeper
 
 
 
-    public Board(int width, int height)
+        public Board(int width, int height)
         {
             if (width < MinimalSize || height < MinimalSize || width > MaximalSize || height > MaximalSize)
             {
@@ -36,7 +36,29 @@ namespace MineSweeper
 
             Tiles = GenerateTiles();
         }
-        
+
+        public Board(int width, int height, List<ITile> tiles)
+        {
+            if (width < MinimalSize || height < MinimalSize || width > MaximalSize || height > MaximalSize)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            if (width * height != tiles?.Count)
+            {
+                throw new ArgumentException();
+            }
+
+            Height = height;
+            Width = width;
+            BoardSize = Height * Width;
+
+            Tiles = tiles;
+            BombsAmount = Tiles.Count(tile => tile.IsBomb);
+            TilesFlagged = Tiles.Count(tile => tile.IsFlag);
+            TilesFlagged = Tiles.Count(tile => tile.IsFlag && tile.IsBomb);
+            Tiles = SetNeighbours(Tiles);
+        }
+
         public ITile GetTile(int x, int y)
         {
             int index = CoordinatesToListIndex(x, y);

@@ -41,14 +41,14 @@ namespace MineSweeperTest
         public void NotRevealedBomb_ToString()
         {
             var tile = new Tile {IsRevealed = false, IsBomb = true};
-            Assert.Equals(tile.ToString(), ".");
+            Assert.AreEqual(tile.ToString(), ".");
         }
         
         [Test]
         public void NotRevealedEmptyTile_ToString()
         {
             var tile = new Tile {IsRevealed = false};
-            Assert.Equals(tile.ToString(), ".");
+            Assert.AreEqual(tile.ToString(), ".");
         }
         
         [Test] 
@@ -58,7 +58,7 @@ namespace MineSweeperTest
         public void RevealedEmptyTile_ToString(int bombsAround)
         {
             var tile = new Tile {IsRevealed = true, BombsAround = bombsAround};
-            Assert.Equals(tile.ToString(), bombsAround.ToString());
+            Assert.AreEqual(tile.ToString(), bombsAround.ToString());
         }
     }
 }
