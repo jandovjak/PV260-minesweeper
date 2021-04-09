@@ -21,7 +21,11 @@ namespace MineSweeper
         }
         public string ToString()
         {
-            throw new NotImplementedException();
+            if (!IsRevealed)
+                return ".";
+            if (IsBomb)
+                return "x";
+            return BombsAround.ToString();
         }
     }
 }

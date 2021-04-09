@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace MineSweeper
 {
@@ -149,6 +150,22 @@ namespace MineSweeper
             Tiles = SetBombs(Tiles);
             Tiles = ShuffleTiles(Tiles);
             Tiles = SetNeighbours(Tiles);
+        }
+
+        public string ToString()
+        {
+            var builder = new StringBuilder();
+
+            for (int x = 0; x < Height; x++)
+            {
+                for (int y = 0; y < Width; y++)
+                {
+                    builder.Append(GetTile(x, y).ToString());
+                }
+                builder.Append("\n");
+            }
+
+            return builder.ToString();
         }
 
         private void RevealAdjacentTiles(int x, int y)
