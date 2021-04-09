@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using MineSweeper;
 using NUnit.Framework;
 using System.Linq;
@@ -329,7 +328,54 @@ namespace MineSweeperTest
             var revealedTilesOnBoardInUpperPart = tiles.Skip(10).Count(tile => tile.IsRevealed);
             Assert.AreEqual(10, revealedTilesOnBoardInUpperPart);
         }
+
+        [Test]
+        public void CheckChangeFlag_GivenTileIsUnflaggedBomb()
+        {
+            var board = emptyBoard3x3();
+            board.GetTile(0, 0).IsBomb = true;
+            board.ChangeFlag(0, 0);
+            Assert.IsTrue(board.GetTile(0,0).IsFlag);
+            Assert.AreEqual(1, board.TilesFlagged);
+            Assert.AreEqual(1, board.BombsFlagged);
+        }
         
+        [Test]
+        public void CheckChangeFlag_GivenTileIsFlaggedBomb()
+        {
+            var board = emptyBoard3x3();
+            var initialTilesFlagged = board.Tiles.Count(tile => tile.IsFlag);
+            var initialBombsFlagged = board.Tiles.Count(tile => tile.IsFlag & tile.IsBomb);
+            board.GetTile(0, 0).IsBomb = true;
+            board.GetTile(0, 0).IsFlag = true;
+            board.ChangeFlag(0, 0);
+            Assert.AreEqual(initialTilesFlagged - 1, board.TilesFlagged);
+            Assert.AreEqual(initialBombsFlagged - 1, board.BombsFlagged);
+        }
+        
+        [Test]
+        public void CheckChangeFlag_GivenTileIsFlaggedTile()
+        {
+            var board = emptyBoard3x3();
+            var initialTilesFlagged = board.Tiles.Count(tile => tile.IsFlag);
+            var initialBombsFlagged = board.Tiles.Count(tile => tile.IsFlag & tile.IsBomb);
+            board.GetTile(0, 0).IsFlag = true;
+            board.ChangeFlag(0, 0);
+            Assert.IsFalse(board.GetTile(0,0).IsFlag);
+            Assert.AreEqual(initialTilesFlagged - 1, board.TilesFlagged);
+            Assert.AreEqual(initialBombsFlagged, board.BombsFlagged);
+        }
+        
+        [Test]
+        public void CheckChangeFlag_GivenTileIsUnflaggedTile()
+        {
+            var board = emptyBoard3x3();
+            board.ChangeFlag(0, 0);
+            Assert.IsTrue(board.GetTile(0,0).IsFlag);
+            Assert.AreEqual(1, board.TilesFlagged);
+            Assert.AreEqual(0, board.BombsFlagged);
+        }
+
         private Board board5x5BombsInAllCorners()
         {
             var board = new Board(5, 5);
