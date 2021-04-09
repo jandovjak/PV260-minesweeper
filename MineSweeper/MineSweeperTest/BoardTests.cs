@@ -117,6 +117,25 @@ namespace MineSweeperTest
         }
         
         [Test]
+        [TestCase(0, 0)]
+        [TestCase(4, 4)]
+        [TestCase(0, 4)]
+        [TestCase(4, 0)]
+        public void CheckRevealTile_GivenTileIsFlaggedBomb_BoardSize5x5(int x, int y)
+        {
+            var board = board5x5BombsInAllCorners();
+            var tile = board.GetTile(x, y);
+            var tiles = board.Tiles;
+
+            tile.IsFlag = true;
+            board.RevealTile(x, y);
+            
+            Assert.IsFalse(tile.IsRevealed);
+            int numRevealedTilesAfter = tiles.Count(tile => tile.IsRevealed);
+            Assert.AreEqual(0, numRevealedTilesAfter);
+        }
+        
+        [Test]
         [TestCase(0, 1)]
         [TestCase(0, 3)]
         [TestCase(1, 0)]
@@ -145,6 +164,35 @@ namespace MineSweeperTest
         }
         
         [Test]
+        [TestCase(0, 1)]
+        [TestCase(0, 3)]
+        [TestCase(1, 0)]
+        [TestCase(1, 1)]
+        [TestCase(1, 3)]
+        [TestCase(1, 4)]
+        [TestCase(3, 0)]
+        [TestCase(3, 1)]
+        [TestCase(3, 3)]
+        [TestCase(3, 4)]
+        [TestCase(4, 1)]
+        [TestCase(4, 3)]
+        public void CheckRevealTile_GivenTileIsFlaggedNumber_BoardSize5x5(int x, int y)
+        {
+            var board = board5x5BombsInAllCorners();
+            var tile = board.GetTile(x, y);
+            var tiles = board.Tiles;
+
+            tile.IsFlag = true;
+            board.RevealTile(x, y);
+            
+            Assert.IsFalse(tile.IsRevealed);
+
+
+            int numRevealedTilesAfter = tiles.Count(tile => tile.IsRevealed);
+            Assert.AreEqual(0, numRevealedTilesAfter);
+        }
+        
+        [Test]
         [TestCase(0, 2)]
         [TestCase(1, 2)]
         [TestCase(2, 2)]
@@ -159,17 +207,34 @@ namespace MineSweeperTest
             var board = board5x5BombsInAllCorners();
             var tile = board.GetTile(x, y);
             var tiles = board.Tiles;
-            
+
+            tile.IsFlag = true;
             board.RevealTile(x, y);
-            
-            Assert.IsFalse(board.GetTile(0, 0).IsRevealed);
-            Assert.IsFalse(board.GetTile(4, 4).IsRevealed);
-            Assert.IsFalse(board.GetTile(0, 4).IsRevealed);
-            Assert.IsFalse(board.GetTile(4, 0).IsRevealed);
-
-
+            Assert.IsFalse(board.GetTile(x, y).IsRevealed);
             int numRevealedTilesAfter = tiles.Count(tile => tile.IsRevealed);
-            Assert.AreEqual(21, numRevealedTilesAfter);
+            Assert.AreEqual(0, numRevealedTilesAfter);
+        }
+        
+        [Test]
+        [TestCase(0, 2)]
+        [TestCase(1, 2)]
+        [TestCase(2, 2)]
+        [TestCase(0, 1)]
+        [TestCase(1, 1)]
+        [TestCase(1, 0)]
+        [TestCase(2, 1)]
+        [TestCase(2, 2)]
+        public void CheckRevealTile_GivenTileIsEmpty_OneFlagOnBoard_BoardSize3x3(int x, int y)
+        {
+            var board = emptyBoard3x3();
+            var tile = board.GetTile(x, y);
+            var tiles = board.Tiles;
+            board.GetTile(0, 0).IsFlag = true;
+            board.RevealTile(x, y);
+            Assert.IsFalse(board.GetTile(0, 0).IsRevealed);
+            Assert.IsTrue(board.GetTile(x, y).IsRevealed);
+            int numRevealedTilesAfter = tiles.Count(tile => tile.IsRevealed);
+            Assert.AreEqual(8, numRevealedTilesAfter);
         }
         
         [Test]
@@ -182,7 +247,7 @@ namespace MineSweeperTest
         [TestCase(2, 0)]
         [TestCase(2, 1)]
         [TestCase(2, 2)]
-        public void CheckRevealTile_GivenTileIsEmpty_EmptyBoard5x5(int x, int y)
+        public void CheckRevealTile_GivenTileIsEmpty_EmptyBoard3x3(int x, int y)
         {
             var board = emptyBoard3x3();
             board.RevealTile(x, y);
@@ -246,7 +311,7 @@ namespace MineSweeperTest
             var revealedTilesOnBoardInUpperPart = tiles.Take(15).Count(tile => tile.IsRevealed);
             Assert.AreEqual(10, revealedTilesOnBoardInUpperPart);
         }
-        
+
         [Test]
         [TestCase(4, 0)]
         [TestCase(4, 1)]
