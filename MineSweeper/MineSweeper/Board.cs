@@ -45,9 +45,9 @@ namespace MineSweeper
 
         public void RevealTile(int x, int y)
         {
-            if (!IsValidPosition(x, y))
+            if (!IsValidPosition(x, y) || GetTile(x, y).IsFlag)
                 return;
-
+            
             var tile = GetTile(x, y);
             tile.IsRevealed = true;
 
@@ -100,7 +100,7 @@ namespace MineSweeper
                         {
                             for (int j = y - 1; j <= y + 1; j++)
                             {
-                                if (i != x && j != y && IsValidPosition(i, j))
+                                if ((i != x || j != y) && IsValidPosition(i, j))
                                 {
                                     int adjIndex = CoordinatesToListIndex(i, j);
                                     tiles[adjIndex].BombsAround += 1;

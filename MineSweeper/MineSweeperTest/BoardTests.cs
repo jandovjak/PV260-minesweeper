@@ -49,6 +49,30 @@ namespace MineSweeperTest
         }
         
         [Test]
+        public void CheckBombsAround_Board5x5BombsInCorners()
+        {
+            var board = board5x5BombsInAllCornersWithoutBombsAround();
+            var newTiles = board.SetNeighbours(board.Tiles);
+            var expectedTiles = board5x5BombsInAllCorners().Tiles;
+            for(var i = 0; i < newTiles.Count(); i++)
+            {
+                Assert.AreEqual(expectedTiles[i].BombsAround, newTiles[i].BombsAround);
+            }
+        }
+        
+        [Test]
+        public void CheckBombsAround_Board5x5BombsInMiddleRow()
+        {
+            var board = board5x5BombsInMiddleRowWithoutBombsAround();
+            var newTiles = board.SetNeighbours(board.Tiles);
+            var expectedTiles = board5x5BombsInMiddleRow().Tiles;
+            for(var i = 0; i < newTiles.Count(); i++)
+            {
+                Assert.AreEqual(expectedTiles[i].BombsAround, newTiles[i].BombsAround);
+            }
+        }
+        
+        [Test]
         [TestCase(-1, 0, 3, 3)]
         [TestCase(0, -1, 3, 3)]
         [TestCase(-5, -5, 3, 3)]
@@ -263,24 +287,51 @@ namespace MineSweeperTest
             return board;
         }
         
+        private Board board5x5BombsInAllCornersWithoutBombsAround()
+        {
+            var board = new Board(5, 5);
+            board.GetTile(0, 0).IsBomb = true;
+            board.GetTile(4, 4).IsBomb = true;
+            board.GetTile(0, 4).IsBomb = true;
+            board.GetTile(4, 0).IsBomb = true;
+            return board;
+        }
+        
+        
         private Board board5x5BombsInMiddleRow()
         {
             var board = new Board(5, 5);
             board.GetTile(2, 0).IsBomb = true;
+            board.GetTile(2, 0).BombsAround = 1;
             board.GetTile(1, 0).BombsAround = 2;
             board.GetTile(3, 0).BombsAround = 2;
             board.GetTile(2, 1).IsBomb = true;
+            board.GetTile(2, 1).BombsAround = 2;
             board.GetTile(1, 1).BombsAround = 3;
             board.GetTile(3, 1).BombsAround = 3;
             board.GetTile(2, 2).IsBomb = true;
+            board.GetTile(2, 2).BombsAround = 2;
             board.GetTile(1, 2).BombsAround = 3;
             board.GetTile(3, 2).BombsAround = 3;
             board.GetTile(2, 3).IsBomb = true;
+            board.GetTile(2, 3).BombsAround = 2;
             board.GetTile(1, 3).BombsAround = 3;
             board.GetTile(3, 3).BombsAround = 3;
             board.GetTile(2,4).IsBomb = true;
+            board.GetTile(2, 4).BombsAround = 1;
             board.GetTile(1, 4).BombsAround = 2;
             board.GetTile(3, 4).BombsAround = 2;
+            return board;
+        }
+        
+        private Board board5x5BombsInMiddleRowWithoutBombsAround()
+        {
+            var board = new Board(5, 5);
+            board.GetTile(2, 0).IsBomb = true;
+            board.GetTile(2, 1).IsBomb = true;
+            board.GetTile(2, 2).IsBomb = true;
+            board.GetTile(2, 3).IsBomb = true;
+            board.GetTile(2,4).IsBomb = true;
             return board;
         }
         
