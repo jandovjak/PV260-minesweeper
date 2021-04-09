@@ -17,10 +17,10 @@ namespace MineSweeper
         public int BombsAmount { get; private set; }
         public int BombsFlagged { get; private set; }
         public int TilesFlagged { get; private set; }
-
-        private readonly Random _randomGenerator = new Random();
         public readonly int BoardSize;
         public List<ITile> Tiles { get; private set; }
+        private readonly Random _randomGenerator = new Random();
+
 
 
     public Board(int width, int height)
