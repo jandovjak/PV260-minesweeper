@@ -14,13 +14,23 @@ namespace MineSweeper
             Board.Initialize();
             GameStatus = GameStatus.Playing;
         }
+        
+        public Game(IBoard board)
+        {
+            Board = board;
+            GameStatus = GameStatus.Playing;
+        }
 
         public IBoard LeftClick(int x, int y)
         {
             x--;
             y--;
-            Board.RevealTile(x, y);
             var tile = Board.GetTile(x, y);
+            if (tile.IsFlag)
+            {
+                return Board;
+            }
+            Board.RevealTile(x, y);
             if (tile.IsBomb)
             {
                 GameStatus = GameStatus.Lose;
