@@ -19,7 +19,7 @@ namespace MineSweeper
         {
             IsFlag = !IsFlag;
         }
-        public string ToString()
+        public override string ToString()
         {
             if (!IsRevealed)
                 return ".";
