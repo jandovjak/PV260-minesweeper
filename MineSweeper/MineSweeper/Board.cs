@@ -11,18 +11,20 @@ namespace MineSweeper
         public const int MaximalSize = 50;
         private const int MinimalBombsPercentage = 20;
         private const int MaximalBombsPercentage = 60;
+        private readonly List<(int, int)> AdjacentDirections =  new List<(int dx, int dy)>
+        {
+            (-1, -1), (-1, -0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)
+        };
 
         public int Height { get; }
         public int Width { get; }
         public int BombsAmount { get; private set; }
         public int BombsFlagged { get; private set; }
         public int TilesFlagged { get; private set; }
-        public readonly int BoardSize;
         public List<ITile> Tiles { get; private set; }
         private readonly Random _randomGenerator = new Random();
 
-
-
+        
         public Board(int width, int height)
         {
             if (width < MinimalSize || height < MinimalSize || width > MaximalSize || height > MaximalSize)
@@ -32,8 +34,6 @@ namespace MineSweeper
 
             Height = height;
             Width = width;
-            BoardSize = Height * Width;
-
             Tiles = GenerateTiles();
         }
 
@@ -50,8 +50,6 @@ namespace MineSweeper
 
             Height = height;
             Width = width;
-            BoardSize = Height * Width;
-
             Tiles = tiles;
             BombsAmount = Tiles.Count(tile => tile.IsBomb);
             TilesFlagged = Tiles.Count(tile => tile.IsFlag);
@@ -81,7 +79,7 @@ namespace MineSweeper
         {
             var tiles = new List<ITile>();
 
-            for (int i = 0; i < BoardSize; i++)
+            for (int i = 0; i < Width * Height; i++)
             {
                 tiles.Add(new Tile());
             }
@@ -115,24 +113,21 @@ namespace MineSweeper
                 {
                     int index = CoordinatesToListIndex(x, y);
                     ITile tile = tiles[index];
-
-                    if (tile.IsBomb)
+                    if (!tile.IsBomb)
                     {
-                        for (int i = x - 1; i <= x + 1; i++)
+                        continue;
+                    }
+                    
+                    foreach (var (dx, dy) in AdjacentDirections)
+                    {
+                        if (IsValidPosition(x + dx, y + dy))
                         {
-                            for (int j = y - 1; j <= y + 1; j++)
-                            {
-                                if ((i != x || j != y) && IsValidPosition(i, j))
-                                {
-                                    int adjIndex = CoordinatesToListIndex(i, j);
-                                    tiles[adjIndex].BombsAround += 1;
-                                }
-                            }
+                            int adjIndex = CoordinatesToListIndex(x + dx, y + dy);
+                            tiles[adjIndex].BombsAround += 1;
                         }
                     }
                 }
             }
-
             return tiles;
         }
         
@@ -173,8 +168,8 @@ namespace MineSweeper
             Tiles = ShuffleTiles(Tiles);
             Tiles = SetNeighbours(Tiles);
         }
-
-        public string ToString()
+        
+        public override string ToString()
         {
             var builder = new StringBuilder();
 
@@ -192,12 +187,11 @@ namespace MineSweeper
 
         private void RevealAdjacentTiles(int x, int y)
         {
-            for (int i = x - 1; i <= x + 1; i++)
+            foreach (var (dx, dy) in AdjacentDirections)
             {
-                for (int j = y - 1; j <= y + 1; j++)
+                if (IsValidPosition(x + dx, y + dy) && !GetTile(x + dx, y + dy).IsRevealed)
                 {
-                    if (IsValidPosition(i, j) && !GetTile(i, j).IsRevealed)
-                        RevealTile(i, j);
+                    RevealTile(x + dx, y + dy);
                 }
             }
         }
